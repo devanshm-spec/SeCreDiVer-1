@@ -14,9 +14,9 @@ G = (x, y)
 n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 
 def pointAdd(p: tuple, q: tuple):
-    """    addition -   In ECC, adding two points isn't simple math. You draw a line through 
-            P and Q, find where it hits the curve again, and reflect it on x - axis .
-    """
+    #addition -   In ECC, adding two points isn't simple math. You draw a line through 
+    #P and Q, find where it hits the curve again, and reflect it on x - axis .
+    
     if p == None: return q # Adding nothing to Q
     if q == None: return p # Adding nothing to P
 
@@ -36,8 +36,8 @@ def pointAdd(p: tuple, q: tuple):
     return (x_new, y_new)
 
 def scalMul(k: int, p: tuple):
-    """ Multiplies a point P by a number k by double And add algorithm which 
-is immposible to undo"""
+    #Multiplies a point P by a number k by double And add algorithm which 
+    #is immposible to undo
     
     result = None
     binSum = p
@@ -49,17 +49,17 @@ is immposible to undo"""
     return result
 
 def onCurv(p: tuple):
-    """ Checks if a point actually on curve y^2 = x^3 + 7."""
+    #Checks if a point actually on curve y^2 = x^3 + 7.
     left = mul(p[1], p[1])
     right = mul(mul(p[0], p[0]), p[0]) + b
     return f_mod(left - right, P) == 0
 
 def xyTob64(p: tuple):
-    """Converts a (x, y) math coordinate into a Base64 string."""
+    #Converts a (x, y) math coordinate into a Base64 string.
     raw_bytes = p[0].to_bytes(32, 'big') + p[1].to_bytes(32, 'big')
     return str(enc64(raw_bytes).decode('utf-8'))
 
 def xyFromb64(raw: str):
-    """Turns a Base64 string back into (x, y) math coordinates."""
+    #Turns a Base64 string back into (x, y) math coordinates.
     raw_bytes = dec64(raw)
     return (int.from_bytes(raw_bytes[:32], 'big'), int.from_bytes(raw_bytes[32:], 'big'))
